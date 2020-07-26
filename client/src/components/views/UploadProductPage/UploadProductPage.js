@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Typography, Button, Form, Input, message, Icon } from "antd";
+import FileUpload from "../../utils/FileUpload";
 
 const { Title } = Typography;
 const { TextArea } = Input;
@@ -20,6 +21,12 @@ export default function UploadProductPage() {
   const [price, setPrice] = useState(0);
   const [continentValue, setContinentValue] = useState(1);
 
+  const [images, setImages] = useState([]);
+
+  const updateImages = (newImages) => {
+    setImages(newImages);
+  };
+
   return (
     <div style={{ maxWidth: "700px", margin: "2rem auto" }}>
       <div style={{ textAlign: "center", marginBottom: "2rem" }}>
@@ -28,12 +35,17 @@ export default function UploadProductPage() {
 
       <Form onSubmit>
         {/* Drop Zone*/}
+
+        <FileUpload refreshFunction={updateImages} />
+
         <br />
         <br />
+
         <label>Title</label>
         <Input onChange={(e) => setTitle(e.target.value)} value={title} />
         <br />
         <br />
+
         <label>Description</label>
         <TextArea
           onChange={(e) => setDescription(e.target.value)}
@@ -41,12 +53,14 @@ export default function UploadProductPage() {
         />
         <br />
         <br />
+
         <label>Price($)</label>
         <Input
           onChange={(e) => setPrice(e.target.value)}
           value={price}
           type="number"
         />
+
         <select onChange={(e) => setContinentValue(e.target.value)}>
           {Continents.map((continent) => (
             <option key={continent.key} value={continent.key}>
@@ -54,8 +68,10 @@ export default function UploadProductPage() {
             </option>
           ))}
         </select>
+
         <br />
         <br />
+
         <Button onClick>Submit</Button>
       </Form>
     </div>
