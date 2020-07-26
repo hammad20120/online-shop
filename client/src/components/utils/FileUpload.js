@@ -23,6 +23,20 @@ export default function FileUpload(props) {
     });
   };
 
+  const onDelete = (imageToDel) => {
+    setImages(
+      images.filter((image) => {
+        return image != imageToDel;
+      })
+    );
+
+    props.refreshFunction(
+      images.filter((image) => {
+        return image != imageToDel;
+      })
+    );
+  };
+
   return (
     <div style={{ display: "flex", justifyContent: "space-between" }}>
       <DropZone onDrop={onDrop} multiple={false} maxSize={909090}>
@@ -52,9 +66,16 @@ export default function FileUpload(props) {
           overflowX: "scroll",
         }}
       >
-        <div onClick>
-          <img />
-        </div>
+        {images.map((image, index) => (
+          <div onClick={() => onDelete(image)}>
+            <img
+              key={index}
+              style={{ minWidth: "300px", width: "300px", height: "240p" }}
+              src={`http://localhost:5000/${image}`}
+              alt={`productImg-${index}`}
+            />
+          </div>
+        ))}
       </div>
     </div>
   );
