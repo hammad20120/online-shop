@@ -5,6 +5,7 @@ import { Icon, Row, Col, Card } from "antd";
 import ImageSlider from "../../utils/ImageSlider";
 import CheckBox from "./Sections/CheckBox";
 import RadioBox from "./Sections/RadioBox";
+import SearchFeature from "./Sections/SearchFeature";
 
 import { continents, price } from "./Sections/Datas";
 
@@ -15,6 +16,8 @@ function LandingPage(props) {
   const [Skip, setSkip] = useState(0);
   const [Limit, setLimit] = useState(8);
   const [PostSize, setPostSize] = useState(0);
+  const [SearchTerm, setSearchTerm] = useState("");
+
   const [Filters, setFilters] = useState({
     continents: [],
     price: [],
@@ -105,6 +108,19 @@ function LandingPage(props) {
     getProducts(variables);
   };
 
+  const updateSearchTerm = (newSearchTerm) => {
+    const variables = {
+      skip: 0,
+      limit: Limit,
+      filters: Filters,
+      searchTerm: newSearchTerm,
+    };
+
+    setSkip(0);
+    setSearchTerm(newSearchTerm);
+    getProducts(variables);
+  };
+
   return (
     <div style={{ width: "75%", margin: "3rem auto" }}>
       <div style={{ textAlign: "center" }}>
@@ -113,23 +129,34 @@ function LandingPage(props) {
         </h2>
       </div>
 
+      {/* Filter */}
+
       <Row gutter={[16, 16]}>
         <Col lg={12} xs={24}>
-          {/* Filter */}
           <CheckBox
             handleFilters={(filters) => handleFilters(filters, "continents")}
           />
         </Col>
         <Col lg={12} xs={24}>
-          {/* Search */}
           <RadioBox
             handleFilters={(filters) => handleFilters(filters, "price")}
           />
         </Col>
       </Row>
 
-      <br />
+      {/* Search */}
 
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "flex-end",
+          margin: "1rem auto",
+        }}
+      >
+        <SearchFeature refreshFunction={updateSearchTerm} />
+      </div>
+
+      <br />
       {Products.length === 0 ? (
         <div
           style={{
