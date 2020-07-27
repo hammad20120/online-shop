@@ -2,11 +2,16 @@ import React, { useState } from "react";
 import DropZone from "react-dropzone";
 import { Icon } from "antd";
 import axios from "axios";
+import path from "path";
 
 export default function FileUpload(props) {
   const [images, setImages] = useState([]);
 
   const onDrop = (files) => {
+    if (files.length === 0) {
+      alert("Invalid File");
+      return;
+    }
     let formdata = new FormData();
     const config = {
       header: { "content-type": "multipart/form-data" },
@@ -39,7 +44,7 @@ export default function FileUpload(props) {
 
   return (
     <div style={{ display: "flex", justifyContent: "space-between" }}>
-      <DropZone onDrop={onDrop} multiple={false} maxSize={909090}>
+      <DropZone onDrop={onDrop} multiple={false} maxSize={90909090}>
         {({ getRootProps, getInputProps }) => (
           <div
             style={{
