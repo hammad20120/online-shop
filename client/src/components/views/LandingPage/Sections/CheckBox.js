@@ -1,38 +1,9 @@
 import React, { useState } from "react";
 import { Checkbox, Collapse } from "antd";
 
+import { continents } from "./Datas";
 const { Panel } = Collapse;
 
-const continents = [
-  {
-    _id: 1,
-    name: "Africa",
-  },
-  {
-    _id: 2,
-    name: "Europe",
-  },
-  {
-    _id: 3,
-    name: "Asia",
-  },
-  {
-    _id: 4,
-    name: "North America",
-  },
-  {
-    _id: 5,
-    name: "South America",
-  },
-  {
-    _id: 6,
-    name: "Australia",
-  },
-  {
-    _id: 7,
-    name: "Antartica",
-  },
-];
 function CheckBox(props) {
   const [Checked, setChecked] = useState([]);
 
@@ -53,7 +24,7 @@ function CheckBox(props) {
   return (
     <div>
       <Collapse defaultActiveKey={["0"]}>
-        <Panel header key="1">
+        <Panel header="Continents" key="1">
           {continents.map((value, index) => (
             <React.Fragment key={index}>
               <Checkbox
